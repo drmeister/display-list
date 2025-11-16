@@ -1,3 +1,9 @@
+# Display-list viewer
+
+## Format for display-lists is here
+
+[Documentation for display-list format](docs/display-list-format.md)
+
 
 ## How to start working on this project
 
