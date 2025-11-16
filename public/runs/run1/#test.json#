@@ -1,0 +1,804 @@
+{
+  "frames": [
+    {
+      "id": 0,
+      "annotation": "Frame 0",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [2.0, 0.0, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "annotation": "Frame 1",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.969615506024416, 0.3472963553338607, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "annotation": "Frame 2",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.8793852415718169, 0.6840402866513374, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "annotation": "Frame 3",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.7320508075688774, 1.0, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "annotation": "Frame 4",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.532088886237956, 1.2855752193730787, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "annotation": "Frame 5",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.2855752193730787, 1.532088886237956, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "annotation": "Frame 6",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.0, 1.7320508075688774, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "annotation": "Frame 7",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [0.6840402866513376, 1.8793852415718166, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "annotation": "Frame 8",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [0.3472963553338608, 1.969615506024416, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "annotation": "Frame 9",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.2246467991473532e-16, 2.0, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "annotation": "Frame 10",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-0.3472963553338605, 1.969615506024416, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "annotation": "Frame 11",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-0.6840402866513373, 1.8793852415718169, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "annotation": "Frame 12",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-0.9999999999999996, 1.7320508075688776, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "annotation": "Frame 13",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.2855752193730785, 1.5320888862379562, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "annotation": "Frame 14",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.5320888862379558, 1.285575219373079, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "annotation": "Frame 15",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.732050807568877, 1.0000000000000004, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "annotation": "Frame 16",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.8793852415718166, 0.6840402866513378, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "annotation": "Frame 17",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.969615506024416, 0.34729635533386083, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "annotation": "Frame 18",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-2.0, 2.4492935982947064e-16, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "annotation": "Frame 19",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.969615506024416, -0.3472963553338603, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "annotation": "Frame 20",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.879385241571817, -0.6840402866513369, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "annotation": "Frame 21",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.7320508075688776, -1.0000000000000002, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "annotation": "Frame 22",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.5320888862379564, -1.2855752193730785, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "annotation": "Frame 23",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.2855752193730794, -1.5320888862379558, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "annotation": "Frame 24",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-1.0000000000000009, -1.7320508075688767, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "annotation": "Frame 25",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-0.6840402866513385, -1.8793852415718164, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "annotation": "Frame 26",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-0.3472963553338614, -1.9696155060244157, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "annotation": "Frame 27",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [-3.6739403974420594e-16, -2.0, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "annotation": "Frame 28",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [0.34729635533386005, -1.969615506024416, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "annotation": "Frame 29",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [0.6840402866513379, -1.8793852415718169, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "annotation": "Frame 30",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [0.9999999999999992, -1.732050807568878, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "annotation": "Frame 31",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.285575219373078, -1.5320888862379564, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "annotation": "Frame 32",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.5320888862379556, -1.2855752193730792, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "annotation": "Frame 33",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.7320508075688767, -1.000000000000001, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "annotation": "Frame 34",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.8793852415718162, -0.6840402866513389, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "annotation": "Frame 35",
+      "primitives": [
+        {
+          "kind": "sphere",
+          "center": [0.0, 0.0, 0.0],
+          "radius": 1.0,
+          "color": [0.2, 0.2, 1.0],
+          "solid": true,
+          "group": "central"
+        },
+        {
+          "kind": "sphere",
+          "center": [1.9696155060244157, -0.3472963553338615, 0.0],
+          "radius": 0.5,
+          "color": [1.0, 0.2, 0.2],
+          "solid": true,
+          "group": "orbiting"
+        }
+      ]
+    }
+  ]
+}
