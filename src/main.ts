@@ -51,13 +51,210 @@ function clearViewer() {
   }
 }
 
+function setupPublicBrowser() {
+  // Button in top-right
+  const btn = document.createElement('button')
+  btn.textContent = 'Browse public/'
+  btn.style.position = 'fixed'
+  btn.style.top = '8px'
+  btn.style.right = '8px'
+  btn.style.zIndex = '1001'
+  btn.style.padding = '4px 8px'
+  btn.style.fontSize = '12px'
+
+  // Panel just below the button
+  const panel = document.createElement('div')
+  panel.style.position = 'fixed'
+  panel.style.top = '40px'
+  panel.style.right = '8px'
+  panel.style.zIndex = '1000'
+  panel.style.maxHeight = '60vh'
+  panel.style.maxWidth = '360px'
+  panel.style.overflow = 'auto'
+  panel.style.background = 'rgba(0,0,0,0.85)'
+  panel.style.color = '#fff'
+  panel.style.padding = '8px'
+  panel.style.borderRadius = '4px'
+  panel.style.display = 'none'
+  panel.style.fontSize = '12px'
+
+  // Header: Up button + breadcrumb
+  const header = document.createElement('div')
+  header.style.display = 'flex'
+  header.style.alignItems = 'center'
+  header.style.marginBottom = '4px'
+  panel.appendChild(header)
+
+  const upButton = document.createElement('button')
+  upButton.textContent = '↑ Up'
+  upButton.style.marginRight = '6px'
+  upButton.style.fontSize = '11px'
+  header.appendChild(upButton)
+
+  const breadcrumb = document.createElement('div')
+  breadcrumb.style.flex = '1'
+  header.appendChild(breadcrumb)
+
+  const list = document.createElement('ul')
+  list.style.listStyle = 'none'
+  list.style.padding = '0'
+  list.style.margin = '0'
+  panel.appendChild(list)
+
+  let currentPath = '/'
+  let parentPath: string | null = null
+
+  interface PublicEntry {
+    name: string
+    path: string
+    type: 'file' | 'dir'
+  }
+
+  function renderBreadcrumb() {
+    breadcrumb.innerHTML = ''
+
+    const parts = currentPath === '/'
+      ? []
+      : currentPath.replace(/^\/|\/$/g, '').split('/')
+
+    // Root link
+    const rootSpan = document.createElement('span')
+    rootSpan.textContent = '/'
+    rootSpan.style.cursor = 'pointer'
+    rootSpan.style.textDecoration = 'underline'
+        rootSpan.addEventListener('click', () => {
+      void refresh('/')
+        })
+    breadcrumb.appendChild(rootSpan)
+
+    let acc = '/'
+    for (const part of parts) {
+      const sep = document.createElement('span')
+      sep.textContent = ' ' // small spacer
+      breadcrumb.appendChild(sep)
+
+      const slash = document.createElement('span')
+      slash.textContent = '/'
+      breadcrumb.appendChild(slash)
+
+      acc = acc.endsWith('/') ? acc + part : acc + '/' + part
+
+      const seg = document.createElement('span')
+      seg.textContent = part
+      seg.style.cursor = 'pointer'
+      seg.style.textDecoration = 'underline'
+      seg.style.marginLeft = '2px'
+            seg.addEventListener('click', () => {
+        void refresh(acc.endsWith('/') ? acc : acc + '/')
+            })
+      breadcrumb.appendChild(seg)
+    }
+  }
+
+  function renderEntries(entries: PublicEntry[]) {
+    list.innerHTML = ''
+
+    if (entries.length === 0) {
+      const empty = document.createElement('div')
+      empty.textContent = '(empty directory)'
+      empty.style.opacity = '0.8'
+      list.appendChild(empty)
+      return
+    }
+
+    for (const e of entries) {
+      const li = document.createElement('li')
+      li.style.marginBottom = '4px'
+
+      const row = document.createElement('button')
+      row.style.width = '100%'
+      row.style.textAlign = 'left'
+      row.style.fontSize = '12px'
+      row.style.padding = '2px 4px'
+      row.style.display = 'flex'
+      row.style.justifyContent = 'space-between'
+      row.style.alignItems = 'center'
+
+      const nameSpan = document.createElement('span')
+      nameSpan.textContent = e.name
+
+      const typeSpan = document.createElement('span')
+      typeSpan.textContent = e.type === 'dir' ? 'dir' : 'file'
+      typeSpan.style.opacity = '0.7'
+      typeSpan.style.marginLeft = '8px'
+
+      row.appendChild(nameSpan)
+      row.appendChild(typeSpan)
+
+            row.addEventListener('click', () => {
+        if (e.type === 'dir') {
+          void refresh(e.path)
+        } else {
+          const url = new URL(window.location.href)
+          url.searchParams.set('displayList', e.path)
+          window.location.href = url.toString()
+        }
+            })
+
+      li.appendChild(row)
+      list.appendChild(li)
+    }
+  }
+
+  async function refresh(path: string) {
+    try {
+      const resp = await fetch(`/public-list?path=${encodeURIComponent(path)}`)
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+      const data: {
+                cwd: string
+              parent: string | null
+              entries: PublicEntry[]
+      } = await resp.json()
+
+      currentPath = data.cwd
+      parentPath = data.parent
+      renderBreadcrumb()
+      renderEntries(data.entries)
+
+      // Up button state
+      upButton.disabled = parentPath == null
+    } catch (err) {
+      list.innerHTML = ''
+      const errDiv = document.createElement('div')
+      errDiv.textContent = `Failed to list public/: ${String(err)}`
+      errDiv.style.color = '#ff8080'
+      list.appendChild(errDiv)
+      upButton.disabled = true
+    }
+  }
+
+    upButton.addEventListener('click', () => {
+    if (parentPath) {
+      void refresh(parentPath)
+    }
+    })
+
+    btn.addEventListener('click', () => {
+    if (panel.style.display === 'none') {
+      panel.style.display = 'block'
+      void refresh(currentPath)
+    } else {
+      panel.style.display = 'none'
+    }
+    })
+
+  document.body.appendChild(btn)
+  document.body.appendChild(panel)
+}
+
 // Build group + frame controls for a given DisplayList and initialize viewer
 function setupForDisplayList(displayList: DisplayList) {
   clearViewer()
 
   // Initialize viewer for this display list
   currentViewer = initViewer(viewerDiv, displayList)
-
+  setupPublicBrowser()
+  
   // Apply current background color (if user already picked one)
   if (bgColorInput && currentViewer) {
     currentViewer.setBackground(bgColorInput.value)
