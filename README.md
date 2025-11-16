@@ -3,10 +3,11 @@
 
 1. Start the Vite dev server on `hermes`:
 
-   ```bash
-      ssh meister@hermes
-         cd ~/Development/display-viewer
-            npm run dev -- --host 127.0.0.1 --port 5173```
+```bash
+ssh meister@hermes
+cd ~/Development/display-viewer
+npm run dev -- --host 127.0.0.1 --port 5173
+```
 
 2. From your local machine, create the SSH tunnel:
 
