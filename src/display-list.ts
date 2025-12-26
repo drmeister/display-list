@@ -1,9 +1,25 @@
 // src/display-list.ts
 
 // Simple RGB color in 0–1 range
-export type Color = [number, number, number]
+export type Color = [number, number, number] | [number, number, number, number]
 
-export interface CylinderPrimitive {
+export interface LineSegmentsPrim {
+  kind: 'lineSegments'
+  segments: number[]
+  color?: Color
+  width?: number
+  group?: string
+}
+
+export interface PointCloudPrim {
+  kind: 'pointCloud'
+  points: number[]
+  color?: Color
+  size?: number
+  group?: string
+}
+
+export interface CylinderPrim {
   kind: 'cylinder'
   start: [number, number, number]
   end: [number, number, number]
@@ -13,16 +29,31 @@ export interface CylinderPrimitive {
   group?: string
 }
 
+export interface PolygonMeshPrim {
+  kind: 'polygonMesh'
+  // flat xyzxyz vertex array
+  vertices: number[]
+  // flat vertex indices; boundaries defined by polygonSizes
+  polygons: number[]
+  polygonSizes: number[]
+  color?: Color
+  // flat RGB/RGBA per-vertex array
+  vertexColors?: number[]
+  group?: string
+}
 
 export type Primitive =
-  | CylinderPrimitive
-    | {
+  | CylinderPrim
+  | PolygonMeshPrim
+  | LineSegmentsPrim
+  | PointCloudPrim
+  | {
       kind: 'point'
       position: [number, number, number]
       color?: Color
       size?: number
       group?: string
-  }
+    }
   | {
     kind: 'line'
     start: [number, number, number]

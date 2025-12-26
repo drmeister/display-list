@@ -1,12 +1,114 @@
 // src/viewer.ts
 import * as THREE from 'three'
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import type {
   DisplayList,
   Frame,
   Primitive,
   GroupDef,
+  Color,
 } from './display-list'
+
+
+function makeThreeColor(color?: Color): THREE.Color {
+  if (!color) return new THREE.Color(1, 1, 1)
+  return new THREE.Color(color[0], color[1], color[2])
+}
+
+function colorToThree(color?: Color): THREE.Color {
+  if (!color) return new THREE.Color(1, 1, 1)
+  const [r, g, b] = color
+  return new THREE.Color(r, g, b)
+}
+
+function buildPolygonMeshGeometry(
+  vertices: number[],
+  polygons: number[],
+  polygonSizes: number[],
+  vertexColors?: number[],
+): { geometry: THREE.BufferGeometry; hasVertexColors: boolean } {
+  if (vertices.length % 3 !== 0) {
+    console.warn('polygonMesh.vertices length not multiple of 3')
+  }
+
+  const vertexCount = Math.floor(vertices.length / 3)
+  const geometry = new THREE.BufferGeometry()
+  geometry.setAttribute(
+    'position',
+    new THREE.BufferAttribute(new Float32Array(vertices), 3),
+  )
+
+  let triCount = 0
+  for (const size of polygonSizes) {
+    if (size < 3) {
+      console.warn('polygonMesh polygonSizes contains size < 3')
+      continue
+    }
+    triCount += size - 2
+  }
+
+  const indexCount = triCount * 3
+  const indices =
+    vertexCount > 65535
+      ? new Uint32Array(indexCount)
+      : new Uint16Array(indexCount)
+
+  let polyOffset = 0
+  let write = 0
+  for (const size of polygonSizes) {
+    if (size < 3) {
+      polyOffset += size
+      continue
+    }
+
+    const base = polygons[polyOffset]
+    for (let i = 1; i < size - 1; i += 1) {
+      indices[write++] = base
+      indices[write++] = polygons[polyOffset + i]
+      indices[write++] = polygons[polyOffset + i + 1]
+    }
+
+    polyOffset += size
+  }
+
+  if (polyOffset !== polygons.length) {
+    console.warn(
+      'polygonMesh.polygons length does not match sum of polygonSizes',
+    )
+  }
+
+  geometry.setIndex(new THREE.BufferAttribute(indices, 1))
+
+  let hasVertexColors = false
+  if (vertexColors && vertexColors.length > 0) {
+    const rgbLen = vertexCount * 3
+    const rgbaLen = vertexCount * 4
+    if (vertexColors.length !== rgbLen && vertexColors.length !== rgbaLen) {
+      console.warn(
+        'polygonMesh.vertexColors length must be 3 or 4 per vertex',
+      )
+    } else {
+      const colors = new Float32Array(rgbLen)
+      if (vertexColors.length === rgbaLen) {
+        for (let i = 0, j = 0; i < rgbaLen; i += 4, j += 3) {
+          colors[j] = vertexColors[i]
+          colors[j + 1] = vertexColors[i + 1]
+          colors[j + 2] = vertexColors[i + 2]
+        }
+      } else {
+        colors.set(vertexColors)
+      }
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+      hasVertexColors = true
+    }
+  }
+
+  geometry.computeVertexNormals()
+  geometry.computeBoundingSphere()
+
+  return { geometry, hasVertexColors }
+}
 
 export interface Viewer {
   setFrame(index: number): void
@@ -16,12 +118,6 @@ export interface Viewer {
   setBackground(color: THREE.ColorRepresentation): void
   dispose(): void
 }
-
-function makeThreeColor(color?: [number, number, number]): THREE.Color {
-  if (!color) return new THREE.Color(1, 1, 1)
-  return new THREE.Color(color[0], color[1], color[2])
-}
-
 function createCylinderMesh(
   start: [number, number, number],
   end: [number, number, number],
@@ -103,15 +199,74 @@ function createTextSprite(
 }
 
 
-
-function colorToThree(color?: [number, number, number]): THREE.Color {
-  if (!color) return new THREE.Color(1, 1, 1)
-  const [r, g, b] = color
-  return new THREE.Color(r, g, b)
-}
-
 function buildPrimitiveObject(prim: Primitive): THREE.Object3D {
   switch (prim.kind) {
+
+    case 'polygonMesh': {
+      const { geometry, hasVertexColors } = buildPolygonMeshGeometry(
+        prim.vertices,
+        prim.polygons,
+        prim.polygonSizes,
+        prim.vertexColors,
+      )
+
+      const meshColor = hasVertexColors
+        ? new THREE.Color(1, 1, 1)
+        : colorToThree(prim.color)
+
+      const mat = new THREE.MeshPhongMaterial({
+        color: meshColor,
+        vertexColors: hasVertexColors,
+        side: THREE.DoubleSide,
+      })
+
+      const mesh = new THREE.Mesh(geometry, mat)
+      if (prim.group) mesh.userData.groupId = prim.group
+      return mesh
+    }
+
+    case 'lineSegments': {
+      if (prim.segments.length % 6 !== 0) {
+        console.warn('lineSegments.segments length not multiple of 6')
+      }
+
+      const positions = new Float32Array(prim.segments)
+
+      const geom = new THREE.BufferGeometry()
+      geom.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+      geom.computeBoundingSphere()
+
+            const mat = new THREE.LineBasicMaterial({
+              color: colorToThree(prim.color),
+              linewidth: prim.width ?? 1,
+            })
+
+      const obj = new THREE.LineSegments(geom, mat)
+      if (prim.group) obj.userData.groupId = prim.group
+      return obj
+    }
+
+    case 'pointCloud': {
+      if (prim.points.length % 3 !== 0) {
+        console.warn('pointCloud.points length not multiple of 3')
+      }
+
+      const positions = new Float32Array(prim.points)
+
+      const geom = new THREE.BufferGeometry()
+      geom.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+      geom.computeBoundingSphere()
+
+            const mat = new THREE.PointsMaterial({
+              size: prim.size ?? 0.05,
+              color: colorToThree(prim.color),
+            })
+
+      const obj = new THREE.Points(geom, mat)
+      if (prim.group) obj.userData.groupId = prim.group
+      return obj
+    }
+
   case 'point': {
     const geom = new THREE.BufferGeometry()
           const positions = new Float32Array([
@@ -230,7 +385,7 @@ function buildFrameGroup(frame: Frame): THREE.Group {
   const group = new THREE.Group()
   for (const prim of frame.primitives) {
     const obj = buildPrimitiveObject(prim)
-    group.add(obj)
+    if (obj) group.add(obj)
   }
   return group
 }
@@ -272,7 +427,22 @@ export function initViewer(
   const raycaster = new THREE.Raycaster()
   const mouse = new THREE.Vector2()
   const coneObjects: THREE.Object3D[] = []
-  
+
+  const CLICK_THRESHOLD = 5 // pixels
+  let pointerDown = false
+  let pointerDownX = 0
+  let pointerDownY = 0
+
+  // Smooth focus animation state
+  let isFocusing = false
+  const focusDuration = 0.5 // seconds
+
+  let focusStartTime = 0
+  const focusStartTarget = new THREE.Vector3()
+  const focusEndTarget = new THREE.Vector3()
+  const focusStartCamPos = new THREE.Vector3()
+  const focusEndCamPos = new THREE.Vector3()
+
   const width = container.clientWidth || window.innerWidth
   const height = container.clientHeight || window.innerHeight
 
@@ -319,6 +489,22 @@ export function initViewer(
   controls.staticMoving = false
   controls.dynamicDampingFactor = 0.15
   controls.target.set(0, 0, 0)
+
+  const pointer = new THREE.Vector2()
+
+  function startFocusAnimation(point: THREE.Vector3) {
+    // Preserve camera–target offset so distance stays the same
+    const offset = new THREE.Vector3().subVectors(camera.position, controls.target)
+
+    focusStartTarget.copy(controls.target)
+    focusEndTarget.copy(point)
+
+    focusStartCamPos.copy(camera.position)
+    focusEndCamPos.copy(point.clone().add(offset))
+
+    focusStartTime = performance.now()
+    isFocusing = true
+  }
 
   // Axes: X=red, Y=green, Z=blue
   const axes = new THREE.AxesHelper(2)
@@ -369,33 +555,65 @@ export function initViewer(
 
   window.addEventListener('resize', resize)
 
-  function onClick(event: MouseEvent) {
+  function focusAtPointer(event: MouseEvent | PointerEvent) {
     const rect = renderer.domElement.getBoundingClientRect()
-    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
-    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
 
-    raycaster.setFromCamera(mouse, camera)
-    const intersects = raycaster.intersectObjects(coneObjects, true)
+    pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
+    pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
+
+    raycaster.setFromCamera(pointer, camera)
+
+    const intersects = raycaster.intersectObjects(scene.children, true)
     if (intersects.length === 0) return
 
-    const hit = intersects[0].object
-    const tipArr = hit.userData?.tip as [number, number, number] | undefined
-    if (!tipArr) return
-
-    const tip = new THREE.Vector3(...tipArr)
-
-    // preserve camera offset from target, move both to the cone tip
-    const offset = new THREE.Vector3().subVectors(camera.position, controls.target)
-    controls.target.copy(tip)
-    camera.position.copy(tip.clone().add(offset))
-    controls.update()
+    const hitPoint = intersects[0].point
+    startFocusAnimation(hitPoint)
   }
 
-  renderer.domElement.addEventListener('click', onClick)
+  function onPointerDown(event: PointerEvent) {
+    if (event.button !== 0) return // left button only
+    pointerDown = true
+    pointerDownX = event.clientX
+    pointerDownY = event.clientY
+  }
+
+  function onPointerUp(event: PointerEvent) {
+    if (!pointerDown || event.button !== 0) return
+    pointerDown = false
+
+    const dx = event.clientX - pointerDownX
+    const dy = event.clientY - pointerDownY
+    if (dx * dx + dy * dy > CLICK_THRESHOLD * CLICK_THRESHOLD) {
+      // Treat as drag, not click
+      return
+    }
+
+    // Small movement: treat as click and re-center
+    focusAtPointer(event)
+  }
+
+  renderer.domElement.addEventListener('pointerdown', onPointerDown)
+  renderer.domElement.addEventListener('pointerup', onPointerUp)
 
   let frameId: number
-  function animate() {
+  function animate(time?: number) {
     frameId = requestAnimationFrame(animate)
+
+    const now = time ?? performance.now()
+
+    if (isFocusing) {
+      const elapsed = (now - focusStartTime) / 1000.0
+      const t = Math.min(Math.max(elapsed / focusDuration, 0), 1)
+
+      // Interpolate camera position and controls.target
+      camera.position.lerpVectors(focusStartCamPos, focusEndCamPos, t)
+      controls.target.lerpVectors(focusStartTarget, focusEndTarget, t)
+
+      if (t >= 1) {
+        isFocusing = false
+      }
+    }
+
     controls.update()
     renderer.render(scene, camera)
   }
@@ -431,7 +649,8 @@ export function initViewer(
       cancelAnimationFrame(frameId)
       window.removeEventListener('resize', resize)
       controls.dispose()
-      renderer.domElement.removeEventListener('click', onClick)
+      renderer.domElement.removeEventListener('pointerdown', onPointerDown)
+      renderer.domElement.removeEventListener('pointerup', onPointerUp)
       renderer.dispose()
       if (currentGroup) {
         scene.remove(currentGroup)
